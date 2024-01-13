@@ -1,0 +1,29 @@
+server:
+  port: 5353
+infotech:
+  host: https://apigw.infotech.co.kr/api/service
+  apiKey: 52de65a9-325a-407e-9403-29f210970559
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: FULL
+logging:
+  level:
+    com.jeekim.server.crjappapi.client.feign: DEBUG
+
+springdoc:
+  packages-to-scan: package com.jeekim.server.jphappapi.controller
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    display-request-duration: true
+    operations-sorter: alpha
+naver:
+  storage:
+    endPoint: "https://kr.object.ncloudstorage.com"
+    regionName: "kr-standard"
+    access-key: hU1bm8Mnp0XUo8TocewP
+    secret-key: NOReFfYm3RFrxYN9vmiAWTN5Lzz1r4LyKNr8kdJc
+    urlPrefix: https://kr.object.ncloudstorage.com
+    bucketName: jph
