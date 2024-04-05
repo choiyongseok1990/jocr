@@ -1,19 +1,25 @@
 server:
   port: 5353
+
+spring:
+  datasource:
+    url: jdbc:mysql://jocr-dev.cincpgqgykpl.ap-northeast-2.rds.amazonaws.com:3306/jocr
+    username: jeekim
+    password: wlzla01!
+  servlet:
+    multipart:
+      maxFileSize: 50MB
+      maxRequestSize: 50MB
+
 infotech:
   host: https://apigw.infotech.co.kr/api/service
   apiKey: 52de65a9-325a-407e-9403-29f210970559
-feign:
-  client:
-    config:
-      default:
-        loggerLevel: FULL
-logging:
-  level:
-    com.jeekim.server.crjappapi.client.feign: DEBUG
+kims:
+  host: https://poc-api.kims.co.kr
+  username: PWJEKM
 
 springdoc:
-  packages-to-scan: package com.jeekim.server.jphappapi.controller
+  packages-to-scan: com.jeekim.server.jocr.controller
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
   swagger-ui:
@@ -21,9 +27,52 @@ springdoc:
     operations-sorter: alpha
 naver:
   storage:
-    endPoint: "https://kr.object.ncloudstorage.com"
-    regionName: "kr-standard"
+    endPoint: https://kr.object.ncloudstorage.com
+    regionName: kr-standard
     access-key: hU1bm8Mnp0XUo8TocewP
     secret-key: NOReFfYm3RFrxYN9vmiAWTN5Lzz1r4LyKNr8kdJc
-    urlPrefix: https://kr.object.ncloudstorage.com
-    bucketName: jph
+    bucketName: jocr-dev
+feign:
+  client:
+    config:
+      default:
+        loggerLevel: BASIC
+        connect-timeout: 2000
+        read-timeout: 180000
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL=DEBUG:
+    com.jeekim.server.jocr.client: DEBUG
+
+lomin:
+  email: guest@lomin.ai
+  password: 123456
+  baseUrl: https://api.textscope.ai/jeekim/stage/api/v1
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+#    url: jdbc:mysql://jocr.cincpgqgykpl.ap-northeast-2.rds.amazonaws.com:3306/jocr
+
+naver:
+  storage:
+    bucketName: jocr
+
+infotech:
+  apiKey: d2935130-0411-4775-8164-93c28ed7b335
+
+lomin:
+  baseUrl: https://api.textscope.ai/jeekim/prod/api/v1
