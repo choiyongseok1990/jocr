@@ -16,6 +16,9 @@ import java.time.format.DateTimeFormatter
 import java.util.Locale
 import java.util.TimeZone
 
+
+fun String.toDate(): LocalDate = LocalDate.parse(this, CommonUtils.NO_DASH_FORMAT)
+fun String.toLongOrZero(): Long = this.toLongOrNull() ?: 0
 fun Any.toJsonNode(): JsonNode {
     return DEFAULT_MAPPER.valueToTree(this)
 }

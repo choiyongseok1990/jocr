@@ -1,5 +1,6 @@
 package com.jeekim.server.jocr.config
 
+import com.jeekim.server.jocr.client.infotech.InfoTechClient
 import com.jeekim.server.jocr.client.kims.KimsClient
 import com.jeekim.server.jocr.client.lomin.LominClient
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan
@@ -15,7 +16,8 @@ import org.springframework.web.reactive.function.client.WebClient
 @EnableFeignClients(
     basePackageClasses = [
         KimsClient::class,
-        LominClient::class
+        LominClient::class,
+        InfoTechClient::class
     ]
 )
 class FeignConfig{
