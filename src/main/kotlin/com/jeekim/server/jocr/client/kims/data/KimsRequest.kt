@@ -18,7 +18,8 @@ data class KimsRequest (
         val hospName: String,
         val hospDate: String,
         val pharmaDate: String,
-        val drugs: List<RxDrug>
+        val drugs: List<RxDrug>,
+        val ocrImage: String
     )
     data class RxDrug(
         val rxType: Int,
@@ -30,7 +31,7 @@ data class KimsRequest (
     )
 
     companion object {
-      fun of(request: PrescriptionRequest, custID: String): KimsRequest{
+      fun of(request: PrescriptionRequest, custID: String, baseUrl: String, bucketName: String): KimsRequest{
           val dataType = KimsInputType.OCR.ordinal
           val rrn = request.patientRrn
           val name = request.patientName
@@ -69,7 +70,8 @@ data class KimsRequest (
                           hospName = medicalInstName,
                           hospDate = issuanceDate.toString(),
                           pharmaDate = issuanceDate.toString(),
-                          drugs = internalDrugs + injectionDrugs
+                          drugs = internalDrugs + injectionDrugs,
+                          ocrImage = "$baseUrl/$bucketName/${request.fileKey}"
                       )
                   )
               )
