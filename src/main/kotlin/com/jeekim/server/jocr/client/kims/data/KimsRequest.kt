@@ -19,7 +19,7 @@ data class KimsRequest (
         val hospDate: String,
         val pharmaDate: String,
         val drugs: List<RxDrug>,
-        val ocrImage: String
+        val ocrImageURL: String
     )
     data class RxDrug(
         val rxType: Int,
@@ -71,7 +71,7 @@ data class KimsRequest (
                           hospDate = issuanceDate.toString(),
                           pharmaDate = issuanceDate.toString(),
                           drugs = internalDrugs + injectionDrugs,
-                          ocrImage = "$baseUrl/$bucketName/${request.fileKey}"
+                          ocrImageURL = "$baseUrl/$bucketName/${request.fileKey}"
                       )
                   )
               )
