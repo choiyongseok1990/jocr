@@ -2,8 +2,7 @@ package com.jeekim.server.jocr.filter
 
 import com.jeekim.server.jocr.exception.AuthException
 import com.jeekim.server.jocr.exception.ErrorCode
-import com.jeekim.server.jocr.exception.JocrException
-import com.jeekim.server.jocr.utils.Hospital.HOSPITAL_MAP
+import com.jeekim.server.jocr.utils.Hospital.HOSPITAL
 import com.jeekim.server.jocr.utils.logger
 import org.springframework.stereotype.Component
 import javax.servlet.FilterChain
@@ -18,7 +17,7 @@ class JphFilter: AbstractFilter {
         if(hospitalId.isNullOrEmpty()) {
             throw AuthException(ErrorCode.HEADER_NOT_FOUND)
         }
-        HOSPITAL_MAP[hospitalId] ?: throw AuthException(ErrorCode.HOSPITAL_NOT_FOUND)
+        HOSPITAL.firstOrNull { it.id == hospitalId } ?: throw AuthException(ErrorCode.HOSPITAL_NOT_FOUND)
         request.setAttribute("id", hospitalId)
         request.setAttribute("service", "JPH")
         filterChain.doFilter(request, response)

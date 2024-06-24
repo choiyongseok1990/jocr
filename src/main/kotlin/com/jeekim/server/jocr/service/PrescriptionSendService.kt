@@ -4,6 +4,7 @@ import com.jeekim.server.jocr.client.kims.KimsAdapter
 import com.jeekim.server.jocr.client.kims.data.KimsRequest
 import com.jeekim.server.jocr.dto.prescription.PrescriptionRequest
 import com.jeekim.server.jocr.domain.enums.ServiceType
+import com.jeekim.server.jocr.utils.Hospital.HOSPITAL
 import com.jeekim.server.jocr.utils.logger
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
@@ -24,7 +25,7 @@ class PrescriptionSendService(
 
     fun sendToKims(request: PrescriptionRequest, userId: String){
         // TODO:  userId로 custId를 찾는 로직 추가되어야함
-        val customerId = if(userId == "test") "PAKUAS" else userId
+        val customerId = HOSPITAL.firstOrNull { it.id == userId }?.key ?: "PAKUAS"
         val kimsRequest = KimsRequest.of(request, customerId, baseUrl, bucketName)
         logger().info("sendToKims : {}", kimsRequest)
         kimsAdapter.send(kimsRequest)
